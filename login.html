@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register - FluxFashion</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-container {
+            max-width: 450px;
+            margin: 50px auto;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #088178;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+
+        .form-btn {
+            width: 100%;
+            background-color: #088178;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .form-btn:hover {
+            background-color: #076e66;
+        }
+
+        .form-message {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        /* Tab Styling */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background-color: #f5f5f5;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab-btn:first-child {
+            border-top-left-radius: 4px;
+        }
+
+        .tab-btn:last-child {
+            border-top-right-radius: 4px;
+        }
+
+        .tab-btn.active {
+            background-color: #088178;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Form divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider-line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #e1e1e1;
+        }
+
+        .divider-text {
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Social login buttons */
+        .social-login {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            text-align: center;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .social-btn i {
+            margin-right: 5px;
+        }
+
+        .facebook {
+            color: #3b5998;
+        }
+
+        .google {
+            color: #db4437;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <a href="index.html"><img src="Assets/Log.PNG" class="logo" alt=""></a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                <li><a class="active" href="login.html">Login</a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <section class="section-p1">
+        <div class="form-container">
+            <?php if(isset($_GET['error'])): ?>
+                <div class="form-message error">
+                    <?php echo htmlspecialchars($_GET['error']); ?>
+                </div>
+            <?php endif; ?>
+            
+            <?php if(isset($_GET['success'])): ?>
+                <div class="form-message success">
+                    <?php echo htmlspecialchars($_GET['success']); ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="tabs">
+                <div class="tab-btn active" data-tab="login">Login</div>
+                <div class="tab-btn" data-tab="register">Register</div>
+            </div>
+
+            <!-- Login Tab Content -->
+            <div class="tab-content active" id="login-tab">
+                <form action="login_process.php" method="post">
+                    <input type="email" name="email" class="input-field" placeholder="Email Address" required>
+                    <input type="password" name="password" class="input-field" placeholder="Password" required>
+                    <div style="text-align: right; margin: 5px 0 15px;">
+                        <a href="forgotpassword.php" style="color: #088178; text-decoration: none; font-size: 14px;">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="form-btn">Login</button>
+                </form>
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text">OR</div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i> Google
+                    </div>
+                </div>
+            </div>
+
+            <!-- Register Tab Content -->
+            <div class="tab-content" id="register-tab">
+                <form action="register_process.php" method="post">
+                    <input type="text" name="fullname" class="input-field" placeholder="Full Name" required>
+                    <input type="email" name="email" class="input-field" placeholder="Email Address" required>
+                    <input type="tel" name="phone" class="input-field" placeholder="Phone Number" required>
+                    <input type="password" name="password" class="input-field" placeholder="Password" required>
+                    <input type="password" name="confirm_password" class="input-field" placeholder="Confirm Password" required>
+                    <button type="submit" class="form-btn">Register</button>
+                </form>
+
+                <div class="divider">
+                    <div class="divider-line"></div>
+                    <div class="divider-text">OR</div>
+                    <div class="divider-line"></div>
+                </div>
+
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i> Google
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="Assets/Log.PNG" alt="">
+            <h4>Contact</h4>
+            <p><strong>Address: Gyaneshwor,Kathmandu</strong> </p>
+            <p><strong>Phone: +977 9810660211</strong></p>
+            <p><strong>Hours: 9.00am to 6.00pm</strong></p>
+        </div>
+        <div class="col">
+            <h4>About Us</h4>
+            <a href="#">About Us</a>
+        </div>
+        <div class="col install">
+            <p>Secured Gateways</p>
+            <img src="Assets/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>&COPY; 2025 FluxFashion </p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab') + '-tab';
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            // Check URL parameters to determine which tab to show
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('tab')) {
+                const tab = urlParams.get('tab');
+                if (tab === 'register') {
+                    document.querySelector('[data-tab="register"]').click();
+                }
+            }
+        });
+
+        // Import existing script.js
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        document.body.appendChild(script);
+
+        const notificationScript = document.createElement('script');
+notificationScript.src = 'notification.js';
+document.body.appendChild(notificationScript);
+    </script>
+</body>
+
+</html>
